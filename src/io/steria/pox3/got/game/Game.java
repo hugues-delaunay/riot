@@ -6,6 +6,7 @@ import java.util.List;
 import io.steria.pox3.got.objectives.ObjectiveCard;
 import io.steria.pox3.got.story.House;
 import io.steria.pox3.got.story.HouseFactory;
+import io.steria.pox3.got.tile.World;
 
 /**
  * starting class for launching game
@@ -15,14 +16,20 @@ import io.steria.pox3.got.story.HouseFactory;
  */
 public class Game {
 
+	World world;
 	List<Player> players = new ArrayList<>();
 	List<House> houses = new HouseFactory().getAllHouses();
 	List<House> availableHouses = new HouseFactory().getAllHouses();
 	List<ObjectiveCard> cards;
 	List<Round> rounds = new ArrayList<>();
 
-	public Game() {
+	public Game(World world) {
+		this.world = world;
 
+	}
+
+	public World getWorld() {
+		return this.world;
 	}
 
 	public void init() {
@@ -50,7 +57,7 @@ public class Game {
 		for (Player player : this.players) {
 			if (player.roundState != RoundState.DEAD) {
 				player.moves = 3;
-				
+
 				if (firstNotDead) {
 					player.roundState = RoundState.PLAYING;
 					firstNotDead = false;

@@ -25,12 +25,18 @@ public class Player {
 		this.moves--;
 	}
 
-	public Player(String name, House house) {
+	public Player(Game game, String name, House house) {
+		this.game = game;
 		this.name = name;
+
 		this.house = house;
-		//bidirection
+		// bidirection
 		this.house.setPlayer(this);
-		//but this link never moves. Not so bad
+		// but this link never moves. Not so bad
+	}
+
+	public Game getGame() {
+		return this.game;
 	}
 
 	boolean chooseName(String pName) {

@@ -7,9 +7,11 @@ import org.junit.Test;
 
 import io.steria.pox3.got.story.House;
 import io.steria.pox3.got.story.HouseFactory;
+import io.steria.pox3.got.tile.World;
 
 public class GameTest {
 
+	World world;
 	Game game;
 	Player anne;
 	Player nicolas;
@@ -18,15 +20,17 @@ public class GameTest {
 	@Before
 	public void setUp() {
 
+		world = new World();
+		world.generate();
 		System.out.println("reinitialize new game");
-		this.game = new Game();
+		this.game = new Game(world);
 
 		HouseFactory factory = new HouseFactory();
 		this.stark = factory.getStark();
 		this.lannister = factory.getLannister();
 
-		this.anne = new Player("anne", lannister);
-		this.nicolas = new Player("Nicolas", stark);
+		this.anne = new Player(game, "anne", lannister);
+		this.nicolas = new Player(game, "Nicolas", stark);
 	}
 
 	@Test

@@ -21,6 +21,7 @@ public abstract class Tile {
 		return true;
 	}
 
+
 	public int getX() {
 		return x;
 	}

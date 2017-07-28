@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.steria.pox3.got.game.Game;
+import io.steria.pox3.got.game.Player;
 import io.steria.pox3.got.story.House;
 import io.steria.pox3.got.story.HouseFactory;
 import io.steria.pox3.got.tile.Domain;
@@ -15,10 +17,14 @@ public class IArmyTest {
 	IArmy army, bigArmy;
 
 	World world;
+	Player a,b;
+	Game game;
 	Domain winterfell3;
+	Domain erye1;
 	HouseFactory factory = new HouseFactory();
 	House stark = factory.getStark();
 	House lannister = factory.getLannister();
+	House arryn = factory.getArryn();
 
 	@Before
 	public void setUp() throws Exception {
@@ -30,9 +36,15 @@ public class IArmyTest {
 		army = new Army(3, stark, winterfell3);
 		winterfell3.setArmy(army);
 		
-		Domain winterfell8 = (Domain) world.get(4, 3);
-		bigArmy = new Army(9, lannister, winterfell8);		
-		bigArmy.move(9, Direction.WEST);
+		erye1 = (Domain) world.get(3, 3);
+		bigArmy = new Army(9, arryn, erye1);
+		erye1.setArmy(bigArmy);
+
+		
+		this.a = new Player(game, "Anne", lannister);
+		this.b = new Player(game, "Nicolas", stark);
+		lannister.setPlayer(a);
+		stark.setPlayer(b);
 	}
 
 	@Test
@@ -45,7 +57,7 @@ public class IArmyTest {
 
 	@Test
 	public void testMoveIntDomain() {
-		army.move(3, Direction.SOUTH);
+		army.move(2, Direction.SOUTH);
 		assertEquals(3, army.getPosition().getX());
 		assertEquals(3, army.getPosition().getY());
 		assertEquals(1, winterfell3.getArmy().getReadyTroops());
